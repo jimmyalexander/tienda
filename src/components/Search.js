@@ -10,6 +10,7 @@ export const Search = () => {
 
   const handleChange =async (e) => {
     await setChange(e.target.value.toLowerCase())
+    await setChange(e.target.value)
     filtrarNombre(); 
   }
   const filtrarNombre = () => {
