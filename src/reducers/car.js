@@ -8,8 +8,8 @@ export const car = ( state = initialState, action ) => {
   switch (action.type){
     case types.addCar:
       return{
-       ...state,
-       compras :action.payload
+        ...state,
+       compras :action.payload 
       }
    
       default:

@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {  db } from '../firebase/firebaseConfig';
 import { types } from '../types/types';
+import { Carousel } from './Carousel';
 import { Loader } from './Loader';
 import { Navbar } from './Navbar';
 import { Search } from './Search';
 
 export const HomeFrutas = () => {
   const dispatch = useDispatch();
+  const [addcar, setAddcar] = useState([])
   const { filtros } = useSelector(state => state.filtros);
-  const { loading } = useSelector(state => state.productos);
+  const { loading, data } = useSelector(state => state.productos);
 
+   
   useEffect(() => {
     db.collection("frutas").onSnapshot((querySnapshot) => { 
       let list = [];
@@ -28,29 +31,44 @@ export const HomeFrutas = () => {
           type: types.cargaData,
           payload: false
         })
-        
         dispatch({
           type: types.addData, //cargamos la data en el estado global
           payload: list
         })
-        dispatch({
-          type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
-          payload: list
-        }) 
     })
-  }, [ dispatch ])
+  },[dispatch])
 
-  
-  const addCar = (id) => {
-    let datoCar = [id]
+  useEffect(() => {
     dispatch({
-      type: types.addCar,
-      payload: datoCar
-    })
+      type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
+      payload: data
+    }) 
+        dispatch({
+          type: types.addCar,
+          payload: addcar
+        })
+  }, [ dispatch, addcar, data ])
+
+ 
+  const addCar = (obj) => {
+    setAddcar(
+      [
+        {
+           id : obj.id,
+           nombre : obj.nombre,
+           precentacion : obj.venta,
+           precio : obj.precio * 1000,
+           urlImg : obj.urlImg,
+           categoria : obj.categoria,
+        },
+        ...addcar
+      ]
+    )
   }
  
   return (
     <div>
+      <Carousel />
       <Navbar />
       <Search />
       <div>
