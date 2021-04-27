@@ -11,7 +11,10 @@ export const car = ( state = initialState, action ) => {
         ...state,
        compras :action.payload 
       }
-   
+    case types.cleanCar:
+      return{
+        compras: []
+      }
       default:
         return state
   }

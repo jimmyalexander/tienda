@@ -1,37 +1,101 @@
+
 .car_title{
-  margin-left: 20px;
-  margin-top: 20px;
+  padding-left: 20px ;
+  color: white;
+  width: 100%;
+  background-color: rgba(100, 190, 258, 0.9);
 }
-.container_car{
+
+.container{
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  .car{
+  .container_car{
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
-    
-    width: 80%;
-    .car-img{
-      width: 300px;
-      height:200px;
-      img{
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    .car-data{
+    .car{
+      border: 1px solid #ccc;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 70%;
-      padding: 20px;
-      p{
-        padding: 0 20px;
+      width: 100%;
+      .car-img{
+       
+        img{
+          width: 100px;
+          height: 100%;
+        }
+      }
+  
+      .car-data{
+        font-size: 10px;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+        p{
+          padding: 0 20px;
+          button{
+            width: 20px;
+            height: 20px;
+            background-color: #ccc;
+          }
+        }
       }
     }
+  }
+
+  .estado-compra{
+    display: flex;
+    margin-bottom: 10%;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    button{
+      width: 100%;
+      margin-top: 20px;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    button:focus{
+    outline: none;
+    }
+    button:nth-child(1){
+      background: rgba(100, 190, 258, 0.9);
+      color: white;
+    }
+    button:nth-child(2){
+      border: 1px solid rgba(100, 190, 258, 0.9);
+      color: rgba(100, 190, 258, 0.9);
+      background: white;
+    }
+    button:nth-child(3){
+      border: 1px solid rgba(100, 190, 258, 0.9);
+      color: rgba(100, 190, 258, 0.9);
+      background: white;
+
+    }
+  }
+}
+
+@media screen and (min-width: 992px){
+  .container{
+    flex-direction: row;
+
+    .container_car{
+
+      .car{
+        .car-data{
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .estado-compra{
+    margin-left: 10%;
+   
   }
 }

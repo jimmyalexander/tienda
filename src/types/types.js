@@ -8,5 +8,7 @@ export const types = {
   cargaData: '[Change] loaderActive',
 
   addCar: '[Add] setCar',
+  cleanCar: '[Add] cleanCar',
+
 
 }

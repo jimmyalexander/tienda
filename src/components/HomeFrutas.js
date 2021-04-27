@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {  db } from '../firebase/firebaseConfig';
 import { types } from '../types/types';
@@ -9,10 +9,11 @@ import { Search } from './Search';
 
 export const HomeFrutas = () => {
   const dispatch = useDispatch();
-  const [addcar, setAddcar] = useState([])
   const { filtros } = useSelector(state => state.filtros);
   const { loading, data } = useSelector(state => state.productos);
+  const { compras } = useSelector(state => state.car);
 
+  
    
   useEffect(() => {
     db.collection("frutas").onSnapshot((querySnapshot) => { 
@@ -43,27 +44,31 @@ export const HomeFrutas = () => {
       type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
       payload: data
     }) 
-        dispatch({
-          type: types.addCar,
-          payload: addcar
-        })
-  }, [ dispatch, addcar, data ])
 
- 
+    
+    
+  }, [ dispatch, data ])
+
+
   const addCar = (obj) => {
-    setAddcar(
+    
+    const arr=
       [
         {
            id : obj.id,
            nombre : obj.nombre,
-           precentacion : obj.venta,
-           precio : obj.precio * 1000,
+           precentacion : obj.precentacion,
+           precio : obj.precio,
            urlImg : obj.urlImg,
            categoria : obj.categoria,
-        },
-        ...addcar
+        },...compras
       ]
-    )
+      dispatch(
+        {
+          type: types.addCar,
+          payload: arr
+        }
+      )
   }
  
   return (
@@ -88,7 +93,8 @@ export const HomeFrutas = () => {
                     <p>Nombre: { prod.nombre }</p>
                     <p>Precio: { prod.precio}</p>
                     <p>Precentación: { prod.precentacion }</p>
-                    <button onClick={ () => {
+                    <button disabled={ false}  onClick={ (e) => {
+                      e.target.disabled=true
                       addCar(prod)
                     } } className='btn btn-add'>Agregar al carrito</button>
                   </div>
