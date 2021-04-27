@@ -70,6 +70,8 @@
           position: relative;
           p{
             position: absolute;
+            left: 30%;
+            top: 30%;
           }
         }
       }
@@ -103,7 +105,7 @@
     }
 
     .container_nav{
-      width: 70%;
+      width: 90%;
       right: 0;
       top: 0;
       flex-direction: row;
@@ -113,14 +115,15 @@
       .nav-anclas{
         ul{
           flex-direction: row;
+          width: 100%;
           a{
             text-align: center;
             padding: 10px;
             p{
-              top: 0;
+              top: 5%;
               width: 20px;
               height: 20px;
-              right: 25%;
+              right: 5%;
               padding: 2px;
               border-radius: 50%;
               margin: 0 auto;

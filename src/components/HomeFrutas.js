@@ -56,8 +56,8 @@ export const HomeFrutas = () => {
         {
            id : obj.id,
            nombre : obj.nombre,
-           precentacion : obj.venta,
-           precio : obj.precio * 1000,
+           precentacion : obj.precentacion,
+           precio : obj.precio,
            urlImg : obj.urlImg,
            categoria : obj.categoria,
         },

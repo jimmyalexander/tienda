@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Icon from './Iconos';
 import { mdiCart, mdiMenu } from '@mdi/js';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { types } from '../types/types';
 
 export const Navbar = () => {
+  const dispatch = useDispatch();
+  const ref = useRef()
+  const { data } = useSelector(state => state.productos);
   const [navActive, setNavActive] = useState(false);
   const { compras } = useSelector(state => state.car);
-
 
   const handleClick = (e) =>{
     setNavActive( !navActive)
   }
+
+
+  const handleFrutas = (e) => {
+    const filt =  data.filter( item => {
+      if(item.categoria === e.target.name){
+        return item
+      }
+    })
+    dispatch({
+      type: types.addFilter,
+      payload: filt
+    })
+  }
+
+  
   return (
-    <div className='componet_nav'>
+    <div rel={ref} className='componet_nav'>
       <div className='nav-icon'>
         <Link to='/tienda'>DF</Link>
       </div>
@@ -26,8 +44,8 @@ export const Navbar = () => {
 
         <nav className='nav-anclas'>
           <ul>
-            <Link to='#'>Frutas</Link>
-            <Link to='#'>Verduras</Link>
+            <Link to='#' name='fruta' onClick={ handleFrutas} >Frutas</Link>
+            <Link to='#' name='verdura' onClick={ handleFrutas} >Verduras</Link>
             <Link to='#'>Carne y Pollo</Link>
             <Link to='/tienda/car'><Icon icon={mdiCart} /><p className='cantidad'>{ compras.length > 0 ? compras.length : '' }</p></Link>
           </ul>
