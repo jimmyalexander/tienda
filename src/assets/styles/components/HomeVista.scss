@@ -34,6 +34,11 @@ body{
         width: 100%;
         height: 100%;
       }
+      .productos-ok{
+        position: absolute;
+        left: 10px;
+        transition: all 0.2s linear;
+      }
     }
 
     .productos-datos{

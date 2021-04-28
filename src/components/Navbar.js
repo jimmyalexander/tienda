@@ -27,18 +27,28 @@ export const Navbar = () => {
       type: types.addFilter,
       payload: filt
     })
+    setNavActive(!navActive)
   }
+
 
   const handleFrutasTodos = (e) => {
     dispatch({
       type: types.addFilter,
       payload: data
     })
+    setNavActive(!navActive)
+
   }
 
+  const [scroll, setScroll] = useState(0)
+
+  window.onscroll = function() {
+    setScroll(window.scrollY)
+  };
+  
   
   return (
-    <div  className='componet_nav'>
+    <div  className={scroll > 1 ? 'componet_nav fixed': 'componet_nav'}>
       <div className='nav-icon'>
         <Link to='/tienda'>DF</Link>
       </div>
@@ -54,15 +64,15 @@ export const Navbar = () => {
             <Link to='#' name='todos' onClick={ handleFrutasTodos} >Todos</Link>
             <Link to='#' name='fruta' onClick={ handleFrutas} >Frutas</Link>
             <Link to='#' name='verdura' onClick={ handleFrutas} >Verduras</Link>
-            <Link to='#'>Carne y Pollo</Link>
+            <Link to='#' name='carnes' onClick={ handleFrutas }>Carne y Pollo</Link>
             <Link to='/tienda/car'><Icon icon={mdiCart} /><p className='cantidad'>{ compras.length > 0 ? compras.length : '' }</p></Link>
           </ul>
         </nav>
 
         <div className='nav-login'>
           <div className='login'>
-            <Link to='#'>Registrarse</Link>
-            <Link to='#'>Iniciar Sesión</Link>
+            <Link to='/tienda/register'>Registrarse</Link>
+            <Link to='/tienda/login'>Iniciar Sesión</Link>
           </div>
         </div>
       </div>
