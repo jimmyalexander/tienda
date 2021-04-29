@@ -14,7 +14,6 @@ export const HomeFrutas = () => {
   const { compras } = useSelector(state => state.car);
 
   
-  
   useEffect(() => {
     db.collection("frutas").onSnapshot((querySnapshot) => { 
       let list = [];

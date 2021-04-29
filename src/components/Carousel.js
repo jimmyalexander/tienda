@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 export const Carousel = () => {
   const { filtros } = useSelector(state => state.filtros);
   return (
-    <div className={  filtros.length === 105 ?  'component_caroulsel ': 'component_caroulsel desaparece'}>
+    <div className={  filtros.length === 114 ?  'component_caroulsel ': 'component_caroulsel desaparece'}>
       <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
