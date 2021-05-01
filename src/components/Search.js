@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { types } from '../types/types'
 
-export const Search = () => {
+export const Search = React.memo(() => {
   const { data } = useSelector(state => state.productos);
   const dispatch = useDispatch()
   const [change, setChange] = useState('')
@@ -69,3 +69,4 @@ export const Search = () => {
     </div>
   )
 }
+)

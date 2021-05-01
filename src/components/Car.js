@@ -1,29 +1,40 @@
-import React, { useState } from 'react'
+import React from 'react';
+import Swal from 'sweetalert2';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {  useHistory } from 'react-router';
-import { types } from '../types/types';
+import { removeToCar } from '../actions/car';
+import { TitleNav } from './TitleNav';
 
 export const Car = () => {
   const dispatch = useDispatch();
   const p = useHistory()
   const { compras } = useSelector(state => state.car);
+  const  auth = useSelector(state => state.auth);
 
-  
+
+
 
   const handleSeguir = () => {
     p.push('/tienda');
   }
   const handleVaciar = () => {
-    dispatch({
-      type: types.cleanCar
-    })
+    dispatch(removeToCar())
 
+  }
+
+  const handleFacturar = (e) => {
+    if(auth?.uid){
+      p.push('/tienda/car/facturar');
+    }
+    else{
+      Swal.fire('¡Upsss!', 'Primero debes iniciar sesión', 'error','1500');
+      p.push('/tienda/login');
+    }
   }
   return (
     <div className='component_car'>
-      <div className='car_title'>
-        <h1>Carrito</h1>
-      </div>
+      <TitleNav name='Carrito' />
       
       <div className='container'>
         <div className='container_car'>
@@ -55,9 +66,21 @@ export const Car = () => {
 
         
         <div className='estado-compra'>
+          <button onClick={ handleFacturar }>Facturar</button>
           <button onClick={ handleVaciar }>Vaciar carrito</button>
           <button onClick={ handleSeguir}>Seguir comprando</button>
-          <div className='form'>
+        </div>
+      
+    </div>
+
+    
+    </ div>
+  )
+}
+
+    
+/* 
+<div className='form'>
             <form action="https://www.paypal.com/es/cgi-bin/webscr" method="post">
                 <input type="hidden" name="cmd" value="_xclick" />
 
@@ -75,15 +98,4 @@ export const Car = () => {
 
                 <input className='button-img' formTarget='blank' type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet."/>
         </form>
-          </div>
-
-        </div>
-      
-    </div>
-
-    
-    </ div>
-  )
-}
-
-    
+          </div> */

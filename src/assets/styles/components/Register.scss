@@ -57,6 +57,21 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    .auth__social-networks{
+      .social{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .google-icon-wrapper{
+          img{
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+          }
+        }
+        
+      } 
+    }
     .form_data{
       display: flex;
       flex-direction: column;

@@ -4,7 +4,7 @@ const initialState = {
   compras: []
 }
 
-export const car = ( state = initialState, action ) => {
+export const carReducer = ( state = initialState, action ) => {
   switch (action.type){
     case types.addCar:
       return{
