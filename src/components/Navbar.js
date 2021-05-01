@@ -4,11 +4,14 @@ import { mdiCart, mdiMenu } from '@mdi/js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { types } from '../types/types';
+import { finishGoogleLogin } from '../actions/auth';
 
 export const Navbar = () => {
   const dispatch = useDispatch();
 
   const { data } = useSelector(state => state.productos);
+  const auth = useSelector(state => state.auth);
+
   const [navActive, setNavActive] = useState(false);
   const { compras } = useSelector(state => state.car);
 
@@ -46,7 +49,9 @@ export const Navbar = () => {
     setScroll(window.scrollY)
   };
   
-  
+  const handleCerrarSesion = () =>{
+    finishGoogleLogin()
+  }
   return (
     <div  className={scroll > 1 ? 'componet_nav fixed': 'componet_nav'}>
       <div className='nav-icon'>
@@ -71,8 +76,28 @@ export const Navbar = () => {
 
         <div className='nav-login'>
           <div className='login'>
-            <Link to='/tienda/register'>Registrarse</Link>
-            <Link to='/tienda/login'>Iniciar Sesión</Link>
+            {
+              auth?.uid
+              ?' '
+              : <Link to='/tienda/register'>Registrarse</Link>
+                
+            }
+            {
+               auth?.uid
+               ?' '
+               :<Link to='/tienda/login'>Iniciar Sesión</Link>
+            }
+
+            {
+               auth?.uid
+               ?<Link onClick={ handleCerrarSesion} to='/tienda'>Cerrar Sesión</Link>
+               :' '
+            }
+            {
+               auth?.uid
+               ?<Link to='/tienda'>{auth.name}</Link>
+               :' '
+            }
           </div>
         </div>
       </div>

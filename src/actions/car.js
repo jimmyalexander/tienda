@@ -1,12 +1,12 @@
 import { types } from "../types/types";
 
 export const addToCar  = ( obj ) => ({
-  type: types.add,
+  type: types.addCar,
   payload: obj
 })
 
 export const removeToCar  = (  ) => ({
-  type: types.remove,
+  type: types.cleanCar,
   payload: false
 })
 

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import Swal from 'sweetalert2';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {  db } from '../firebase/firebaseConfig';
 import { types } from '../types/types';
@@ -6,6 +8,7 @@ import { Carousel } from './Carousel';
 import { Loader } from './Loader';
 import { Navbar } from './Navbar';
 import { Search } from './Search';
+import { addToCar } from '../actions/car';
 
 export const HomeFrutas = () => {
   const dispatch = useDispatch();
@@ -72,12 +75,15 @@ export const HomeFrutas = () => {
         },...compras
       ]
      
-      dispatch(
-        {
-          type: types.addCar,
-          payload: arr
-        }
-      )
+
+      dispatch( addToCar(arr))
+      Swal.fire({
+        title: `${obj.nombre}!`,
+        text: `fue añadido`,
+        icon: 'success',
+        timer: 1500
+
+      })
   }
   
 

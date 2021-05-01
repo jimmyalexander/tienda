@@ -8,8 +8,8 @@ export const Search = () => {
   const [change, setChange] = useState('')
 
   const handleChange =async (e) => {
-    await setChange(e.target.value.toLowerCase())
-    await setChange(e.target.value)
+     setChange(e.target.value.toLowerCase())
+     setChange(e.target.value)
     filtrarNombre(); 
   }
   const filtrarNombre = () => {

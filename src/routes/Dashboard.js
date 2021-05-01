@@ -1,11 +1,12 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { Car } from '../components/Car'
+import { Facturar } from '../components/Facturar'
 import { HomeFrutas } from '../components/HomeFrutas'
 import { Login } from '../components/Login'
 import { Register } from '../components/Register'
 
-export const DashboardRoutes = () => {
+export const DashboardRoutes = ({isAuthenticated}) => {
   return (
    
      <div>
@@ -13,8 +14,21 @@ export const DashboardRoutes = () => {
         <Switch>
           <Route exact path='/tienda/car' component={Car} />
           <Route exact path='/tienda' component={HomeFrutas} />
-          <Route exact path='/tienda/register' component={Register} />
-          <Route exact path='/tienda/login' component={Login} />
+          {
+            isAuthenticated
+            ? <Redirect to='/tienda/login' />
+            :
+            <Route exact path='/tienda/register' component={Register} />
+          }
+
+          {
+            isAuthenticated
+            ? <Redirect to='/tienda' />
+            :
+            <Route exact path='/tienda/login' component={Login} />
+          }
+
+          <Route exact path='/tienda/car/facturar' component={ Facturar } />
         </Switch>
       </div>
     </div>
