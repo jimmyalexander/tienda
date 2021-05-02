@@ -4,9 +4,12 @@
   color: white;
   width: 100%;
   background-color: rgba(100, 190, 258, 0.9);
+  box-shadow: 4px 4px 6px #bbb;
+
 }
 
 .container{
+  margin-top: 5%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -17,6 +20,7 @@
     justify-content: center;
     height: 100%;
     .car{
+      overflow-y: hidden;
       border: 1px solid #ccc;
       display: flex;
       width: 100%;
@@ -39,6 +43,12 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          border: none;
+          color: white;
+          background: rgba(100, 190, 258, 0.9);
+        }
+        .mas:hover{
+          color: black;
         }
         p{
           padding: 0 10px;
@@ -82,21 +92,7 @@
       color: rgba(100, 190, 258, 0.9);
       background: white;
     }
-    .form{
-      width: 100%;
-      height: 200px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      form{
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        .button-img{
-          width: 40%;
-        }
-      }
-    }
+ 
     
   }
 }

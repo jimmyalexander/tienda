@@ -17,6 +17,7 @@ body{
   justify-content: center;
   .productos{
     border: 1px solid #ddd;
+    box-shadow: 4px 4px 10px #ccc;
     margin: 10px;
     height: 400px;
     width: 300px;
@@ -53,7 +54,7 @@ body{
       p{
        padding-left: 20px;
       }
-
+     
       .btn-add{
         background-color: white;
         font-family: 'PT Sans', sans-serif;
@@ -69,6 +70,7 @@ body{
       .btn-add:hover{
         color: #76c893;
         font-size: 15px;
+        box-shadow: none;
       }
     }
 

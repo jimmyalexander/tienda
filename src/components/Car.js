@@ -24,13 +24,17 @@ export const Car = () => {
   }
 
   const handleFacturar = (e) => {
-    if(auth?.uid){
+    if(auth?.uid && compras.length > 0){
       p.push('/tienda/car/facturar');
+    }
+    else if( auth?.uid && compras.length === 0){
+      Swal.fire('¡Upsss!', 'Primero debes agregar productos a tu carrito', 'error','1500');
     }
     else{
       Swal.fire('¡Upsss!', 'Primero debes iniciar sesión', 'error','1500');
       p.push('/tienda/login');
     }
+    
   }
   return (
     <div className='component_car'>
@@ -42,7 +46,7 @@ export const Car = () => {
             
             compras.map( ({id, nombre, precio, urlImg, cantidad}) => {
               const hancli = () => {
-                cantidad++
+                console.log('mas')
               }
               return(
                 <div className='car' key={id}>
@@ -53,6 +57,7 @@ export const Car = () => {
                   <div className='car-data'>
                     <p>{nombre}</p>
                     <p>{ precio }</p>
+                    <p><button onClick={ hancli } className='mas menos'>-</button></p>
                     <p><button onClick={ hancli } className='mas'>+</button></p>
                     <p>{ cantidad }</p>
                     <p>${ precio * cantidad}</p>
@@ -78,24 +83,3 @@ export const Car = () => {
   )
 }
 
-    
-/* 
-<div className='form'>
-            <form action="https://www.paypal.com/es/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_xclick" />
-
-                <input type="hidden" name="business" value="jkastiblanco@gmail.com" />
-
-                <input type="hidden" name="item_name" value="Nombre del producto" />
-
-                <input type="hidden" name="currency_code" value="USD" />
-
-                <input type="hidden" name="amount" value="100" />
-
-                <input type="hidden" name="return" value="http://localhost:3000/tienda/car" />
-
-                <input type="hidden" name="cancel_return" value="http://localhost:3000/tienda/car" />
-
-                <input className='button-img' formTarget='blank' type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet."/>
-        </form>
-          </div> */

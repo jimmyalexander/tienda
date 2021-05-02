@@ -9,6 +9,7 @@ import { Loader } from './Loader';
 import { Navbar } from './Navbar';
 import { Search } from './Search';
 import { addToCar } from '../actions/car';
+import { Footer } from './Footer';
 
 export const HomeFrutas = () => {
   const dispatch = useDispatch();
@@ -52,12 +53,13 @@ export const HomeFrutas = () => {
   },[dispatch,compras])
 
   useEffect(() => {
-    dispatch({
-      type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
-      payload: data
-    }) 
-  }, [ dispatch, data ])
-
+    if(filtros.length === 0){
+      dispatch({
+        type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
+        payload: data
+      }) 
+    }
+  }, [ dispatch, data, filtros ])
 
   const addCar = (obj) => {
     
@@ -103,14 +105,17 @@ export const HomeFrutas = () => {
               return(
                 <div className='productos' key={prod.id}>
                   <figure>
-                    <p className='productos-ok'>{ prod.estado ? `✔️` : '' }</p>
+                    <p className='productos-ok'>{ prod.estado  ? `✔️` : '' }</p>
                     <img src={ prod.urlImg} alt={prod.nombre} />
                   </figure>
                   <div className='productos-datos'>
                     <p>Nombre: { prod.nombre }</p>
                     <p>Precio: { prod.precio}</p>
                     <p>Precentación: { prod.precentacion }</p>
+                   
                     <button disabled={ prod.estado }  onClick={ (e) => {
+                      e.target.disabled = true
+                      e.target.innerText = 'Añadido'
                       addCar(prod)
                     } } className='btn btn-add'>{ prod.estado ? 'Añadido' : 'Agregar al carrito' }</button>
                   </div>
@@ -119,6 +124,8 @@ export const HomeFrutas = () => {
             } )
           }
       </div>
+      
+      <Footer />
     </div>
   )
 }

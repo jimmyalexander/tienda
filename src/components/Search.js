@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { types } from '../types/types'
 
-export const Search = React.memo(() => {
+export const Search = () => {
   const { data } = useSelector(state => state.productos);
   const dispatch = useDispatch()
   const [change, setChange] = useState('')
@@ -28,18 +28,27 @@ export const Search = React.memo(() => {
   const handleInput = (e) => {
      const filt =  data.filter( item => {
       if( e.target.value === 'tres' && item.precio <= 3000){
+        setChange('');
         return item
       }
       else if(e.target.value === 'cinco' && item.precio > 3000 && item.precio <= 5000){
+        setChange('');
+
         return item
       }
       else if(e.target.value === 'ocho' && item.precio > 5000 && item.precio <= 8000){
+        setChange('');
+
         return item
       }
       else if(e.target.value === 'veinte' && item.precio > 8000 && item.precio <= 20000){
+        setChange('');
+
         return item
       }
       else if(e.target.value === 'vacio'){
+        setChange('');
+
         return item
       }
     })
@@ -69,4 +78,3 @@ export const Search = React.memo(() => {
     </div>
   )
 }
-)
