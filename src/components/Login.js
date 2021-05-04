@@ -5,10 +5,12 @@ import { mdiFacebook } from '@mdi/js';
 import { startFacebookLogin, startGoogleLogin, startLoginEmailPassword } from '../actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../hooks/useForm';
+import { types } from '../types/types';
 
 export const Login = () => {
   let dispatch = useDispatch();
   const p = useHistory();
+  const { data } = useSelector(state => state.productos);
   const  { uid } = useSelector(state => state.auth);
   const { loading } = useSelector(state => state.ui);
   const [metodo, setMetodo] = useState('');
@@ -57,7 +59,12 @@ export const Login = () => {
     <div>
     <div className='grilla'>
       <div className='item_1 grilla-header'>
-        <Link to='/tienda' ><p>DF</p></Link>
+        <Link onClick={() => {
+          dispatch({
+            type: types.addFilter,
+            payload: data
+          })
+        }}  to='/tienda' ><p>DF</p></Link>
       </div>
       <div className='item_2 grilla-img'>
         <figure>
@@ -73,6 +80,7 @@ export const Login = () => {
           <div className='form_data'>
             <label>E-mail</label>
             <input 
+              required
               type='text'
               name='email'
               value={ email }
@@ -80,6 +88,7 @@ export const Login = () => {
             />
             <label>Contraseña</label>
             <input 
+              required
               type='password'
               name='contraseña'
               value={ contraseña }

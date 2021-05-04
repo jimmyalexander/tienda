@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,11 @@ export const HomeFrutas = () => {
   const { filtros } = useSelector(state => state.filtros);
   const { loading, data } = useSelector(state => state.productos);
   const { compras } = useSelector(state => state.car);
+  const [count, setCount] = useState({
+    id:'',
+    cant: 1,
+
+  })
 
   
   useEffect(() => {
@@ -51,18 +56,34 @@ export const HomeFrutas = () => {
         })
     })
   },[dispatch,compras])
+  const [active, setActive] = useState(false)
+
+
 
   useEffect(() => {
-    if(filtros.length === 0){
+    if(filtros.length === 0 ){
       dispatch({
         type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
         payload: data
       }) 
     }
-  }, [ dispatch, data, filtros ])
+  }, [ dispatch, data, filtros  ])
+
+  useEffect(() => {
+    if(compras.length > 0 && filtros.length > 100){
+      dispatch({
+        type: types.addFilter,
+        payload: data
+      }) 
+    }
+  }, [ dispatch, compras, data,filtros  ])
+
+
+  
+
 
   const addCar = (obj) => {
-    
+    setActive(!active)
     const arr=
       [
         {
@@ -73,21 +94,40 @@ export const HomeFrutas = () => {
            urlImg : obj.urlImg,
            categoria : obj.categoria,
            estado : true,
-           cantidad: 1
+           cantidad: count.cant
         },...compras
       ]
      
-
       dispatch( addToCar(arr))
+      setCount({
+        id:'',
+        cant: 1,
+        estado: false
+      })
+
       Swal.fire({
         title: `${obj.nombre}!`,
         text: `fue añadido`,
         icon: 'success',
         timer: 1500
-
       })
   }
   
+  const handleMas = (id) => {
+    setCount({
+      id:id,
+      cant: count.cant + 1,
+      estado: false
+    })
+  }
+
+  const handleMenos = (id) => {
+    setCount({
+      id:id,
+      cant: count.cant === 1 ? 1 : count.cant - 1,
+      estado: false
+    })
+  }
 
   return (
     <div>
@@ -112,7 +152,14 @@ export const HomeFrutas = () => {
                     <p>Nombre: { prod.nombre }</p>
                     <p>Precio: { prod.precio}</p>
                     <p>Precentación: { prod.precentacion }</p>
-                   
+                    <p>Cantidad: {count.id === prod.id ? count.cant : compras.map(item => {if(item.id === prod.id){return item.cantidad}}) }<button className='btn-cantidad' disabled={prod.estado} onClick={(e) => {
+                      handleMas(prod.id)
+                    }}>+</button> 
+                     
+                     <button className='btn-cantidad' disabled={prod.estado} onClick={(e) => {
+                        handleMenos(prod.id)
+                     }}>-</button> 
+                     </p>
                     <button disabled={ prod.estado }  onClick={ (e) => {
                       e.target.disabled = true
                       e.target.innerText = 'Añadido'

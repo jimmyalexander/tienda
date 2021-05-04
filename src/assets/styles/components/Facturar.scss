@@ -1,7 +1,7 @@
 .component_facturar{
   .facturacion_regresar{
     text-decoration: none;
-    background-color: rgb(100, 190, 258);
+    background-color: $color-principal;
     color: white;
     padding: 10px;
     width: 300px;
@@ -28,7 +28,7 @@
       width: 80%;
       border-radius: 10px;
       display: flex;
-      background: rgb(100, 190, 258);
+      background: $color-principal;
       flex-direction: column;
       align-items: center;
       padding: 20px;
@@ -71,9 +71,7 @@
 
 @media screen and (min-width: 992px){
   .component_facturar{
-    .facturacion_regresar{
-      
-    }
+    
     .facturar{
       flex-direction: row;
       .container_form{

@@ -43,7 +43,7 @@ body{
     }
 
     .productos-datos{
-      background-color: rgb(100, 190, 258);
+      background-color: $color-principal;
       font-size: 18px;
       width: 100%;
       height: 100%;
@@ -72,8 +72,20 @@ body{
         font-size: 15px;
         box-shadow: none;
       }
+      
+        .btn-cantidad{
+            color: #999;
+            width: 20%;
+            margin-left: 10%;
+            border: none;
+            border-radius: 5px;
+          }
+        .btn-cantidad:hover{
+            color: black;
+
+          }
+      }
     }
 
 
   }
-}

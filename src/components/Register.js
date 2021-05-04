@@ -50,7 +50,8 @@ export const Register = () => {
             
             <div className='form_data'>
               <label>Nombre</label>
-              <input 
+              <input
+                required 
                 type='text'
                 autoComplete='off'
                 name='nombre'
@@ -58,7 +59,8 @@ export const Register = () => {
                 onChange={  handleInputChange }
               />
               <label>E-mail</label>
-              <input 
+              <input
+                required 
                 type='text'  
                 autoComplete='on'
                 name='email'
@@ -66,7 +68,8 @@ export const Register = () => {
                 onChange={  handleInputChange }
               />
               <label>Contraseña</label>
-              <input 
+              <input
+                required 
                 type='password'  
                 autoComplete='off'
                 name='contraseña'
@@ -74,7 +77,8 @@ export const Register = () => {
                 onChange={  handleInputChange }
               />
               <label>Confirma Contraseña</label>
-              <input 
+              <input
+                required 
                 type='password'
                 name='contraseña2'  
                 value={contraseña2} 

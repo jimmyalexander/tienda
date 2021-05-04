@@ -8,42 +8,45 @@ import { finishGoogleLogin } from '../actions/auth';
 
 export const Navbar = () => {
   const dispatch = useDispatch();
-
+  const [navActive, setNavActive] = useState(false);
+  const [scroll, setScroll] = useState(0);
+  
   const { data } = useSelector(state => state.productos);
   const auth = useSelector(state => state.auth);
-
-  const [navActive, setNavActive] = useState(false);
   const { compras } = useSelector(state => state.car);
-
+  
   const handleClick = (e) =>{
-    setNavActive( !navActive)
+    setNavActive( !navActive);
   }
 
-
+  
   const handleFrutas = (e) => {
     const filt =  data.filter( item => {
       if(item.categoria === e.target.name){
-        return item
+        return item;
       }
     })
+
     dispatch({
       type: types.addFilter,
       payload: filt
     })
-    setNavActive(!navActive)
+
+    setNavActive(!navActive);
   }
 
 
   const handleFrutasTodos = (e) => {
+
     dispatch({
       type: types.addFilter,
       payload: data
     })
-    setNavActive(!navActive)
+
+    setNavActive(!navActive);
 
   }
 
-  const [scroll, setScroll] = useState(0)
 
   window.onscroll = function() {
     setScroll(window.scrollY)
@@ -52,10 +55,16 @@ export const Navbar = () => {
   const handleCerrarSesion = () =>{
     finishGoogleLogin()
   }
+  
   return (
     <div  className={scroll > 1 ? 'componet_nav fixed': 'componet_nav'}>
       <div className='nav-icon'>
-        <Link to='/tienda'>DF</Link>
+        <Link  onClick={() => {
+          dispatch({
+            type: types.addFilter,
+            payload: data
+          })
+        }}  to='/tienda'>DF</Link>
       </div>
       
       <div  className='container_burguer'>

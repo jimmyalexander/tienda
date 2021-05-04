@@ -1,26 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {  useHistory } from 'react-router';
-import { removeToCar } from '../actions/car';
+import { addToCar, removeToCar } from '../actions/car';
 import { TitleNav } from './TitleNav';
+import { types } from '../types/types';
 
 export const Car = () => {
   const dispatch = useDispatch();
   const p = useHistory()
+
+  const { data } = useSelector(state => state.productos);
   const { compras } = useSelector(state => state.car);
   const  auth = useSelector(state => state.auth);
 
 
 
+  useEffect(() => {
+
+    dispatch({
+      type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
+      payload: data
+    }) 
+
+  } ,[compras,data,dispatch])
 
   const handleSeguir = () => {
+    dispatch({
+      type: types.addFilter, // cargamos la data en estado global filter que se encargara de mostrar busquedas
+      payload: data
+    }) 
     p.push('/tienda');
   }
+
   const handleVaciar = () => {
     dispatch(removeToCar())
-
+    p.push('/tienda');
+    window.location.reload();
   }
 
   const handleFacturar = (e) => {
@@ -36,39 +53,58 @@ export const Car = () => {
     }
     
   }
+
+  const prodDelete = (id) =>{
+   const Delete = compras.filter( prod => prod.id !== id);
+    dispatch( addToCar(Delete));    
+  }
+ 
   return (
     <div className='component_car'>
       <TitleNav name='Carrito' />
       
       <div className='container'>
         <div className='container_car'>
-          {
-            
-            compras.map( ({id, nombre, precio, urlImg, cantidad}) => {
-              const hancli = () => {
-                console.log('mas')
-              }
+          <div className="car">
+            <p className='item title'>Producto</p>
+            <p className='item title'>Nombre</p>
+            <p className='item title'>Cantidad</p>
+            <p className='item title'>Total</p>
+            <p className='item title'>Elminar</p>
+          </div>
+          {            
+            compras.map( ({id, nombre, precio, urlImg,cantidad= 1 }) => {
               return(
                 <div className='car' key={id}>
-                  <figure className='car-img'>
+                  <div className="car-img">
                     <img src={urlImg} alt={nombre} />
-                  </figure>
-
-                  <div className='car-data'>
-                    <p>{nombre}</p>
-                    <p>{ precio }</p>
-                    <p><button onClick={ hancli } className='mas menos'>-</button></p>
-                    <p><button onClick={ hancli } className='mas'>+</button></p>
-                    <p>{ cantidad }</p>
-                    <p>${ precio * cantidad}</p>
-                    
                   </div>
+                  <div className="item nombre">
+                    <p>{nombre}</p>
+                  </div>
+                  <div className="item cantidad">
+                    <p>{cantidad}</p>
+                  </div>
+
+                  <div className="item total">
+                    <p>{precio * cantidad}</p>
+                  </div>
+
+                  <div className="item eliminar">
+                    <button
+                      onClick={(e)=> {
+                        prodDelete(id)
+                      }}
+                    >Eliminar
+                    </button>
+                  </div>
+
                 </div>
               )
             })
           }
         </div>
-
+       
         
         <div className='estado-compra'>
           <button onClick={ handleFacturar }>Facturar</button>
@@ -77,7 +113,6 @@ export const Car = () => {
         </div>
       
     </div>
-
     
     </ div>
   )

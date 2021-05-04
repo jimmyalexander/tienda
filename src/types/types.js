@@ -10,7 +10,7 @@ export const types = {
   cargaData: '[Change] loaderActive',
 
   addCar: '[Add] setCar',
-  cleanCar: '[Add] cleanCar',
+  cleanCar: '[Clean] cleanCar',
 
   uiStartLoading: '[UI] Start loading',
   uiFinishLoading: '[UI] Finish loading',
