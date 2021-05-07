@@ -22,11 +22,13 @@
       height: 100%;
     }
     .car{
+      font-size: 12px;
       display: grid;
-      grid-template-columns: 100px 100px 100px 100px 100px; 
+      grid-template-columns: 80px 80px 80px 80px 80px; 
       width: 100%;
       border-bottom: 0.1px solid #999;
       .car-img{
+        font-size: 10px;
        
         img{
           width: 90px;
@@ -109,6 +111,9 @@
     .container_car{
 
       .car{
+        font-size: 16px;
+        grid-template-columns: 100px 100px 100px 100px 100px; 
+
         .car-data{
           font-size: 16px;
           p{

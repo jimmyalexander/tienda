@@ -70,7 +70,7 @@ export const Car = () => {
             <p className='item title'>Nombre</p>
             <p className='item title'>Cantidad</p>
             <p className='item title'>Total</p>
-            <p className='item title'>Elminar</p>
+            <p className='item title'>Eliminar</p>
           </div>
           {            
             compras.map( ({id, nombre, precio, urlImg,cantidad= 1 }) => {
@@ -113,7 +113,6 @@ export const Car = () => {
         </div>
       
     </div>
-    
     </ div>
   )
 }
