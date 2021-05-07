@@ -6,6 +6,7 @@ import { startFacebookLogin, startGoogleLogin, startLoginEmailPassword } from '.
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../hooks/useForm';
 import { types } from '../types/types';
+import { Footer } from './Footer';
 
 export const Login = () => {
   let dispatch = useDispatch();
@@ -121,6 +122,7 @@ export const Login = () => {
         </form>
       </div>
     </div>
+    <Footer />
   </div>
   )
 }

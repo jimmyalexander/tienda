@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { Footer } from './Footer'
 import { TitleNav } from './TitleNav'
 
 export const Facturar = () => {
@@ -60,6 +61,7 @@ export const Facturar = () => {
         </form>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

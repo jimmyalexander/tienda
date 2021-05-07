@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { startRegisterWithEmailPasswordName } from '../actions/auth';
 import { useForm } from '../hooks/useForm';
+import { Footer } from './Footer';
 
 
 export const Register = () => {
@@ -16,15 +18,21 @@ export const Register = () => {
     contraseña2: ''
   });
   let { nombre, email, contraseña, contraseña2 } = formValues;
+  const [messageError, setMessageError] = useState('');
+
 
   const handleSubmitRegister = (e) => {
-    e.preventDefault()
-    dispatch(
-      startRegisterWithEmailPasswordName(email,contraseña,nombre, contraseña2)
-    )
-    if(auth?.uid){
-      reset();
-      p.push('/tienda/login');
+    e.preventDefault();
+    if(contraseña.includes(contraseña2) && contraseña2 !== ''){
+      dispatch(
+        startRegisterWithEmailPasswordName(email,contraseña,nombre, contraseña2)
+      )
+      if(auth?.uid){
+        reset();
+      }
+    }
+    else{
+      setMessageError('¡Upss contraseñas no coinciden!');
     }
   }
 
@@ -77,6 +85,9 @@ export const Register = () => {
                 onChange={  handleInputChange }
               />
               <label>Confirma Contraseña</label>
+              {
+                messageError
+              }
               <input
                 required 
                 type='password'
@@ -92,6 +103,7 @@ export const Register = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

@@ -18,14 +18,14 @@ export const DashboardRoutes = ({isAuthenticated}) => {
             isAuthenticated
             ? <Redirect to='/tienda/login' />
             :
-            <Route exact path='/tienda/register' component={Register} />
+            <Route  path='/tienda/register' component={Register} />
           }
 
           {
             isAuthenticated
             ? <Redirect to='/tienda' />
             :
-            <Route exact path='/tienda/login' component={Login} />
+            <Route  path='/tienda/login' component={Login} />
           }
 
           <Route exact path='/tienda/car/facturar' component={ Facturar } />
